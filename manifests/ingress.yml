@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ping-ingress
+  annotations:
+    traefik.protocol: http
+spec:
+  rules:
+    - host: ping.nnazo.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ping-service
+                port:
+                  number: 38080
+  tls:
+    - hosts:
+      - ping.nnazo.dev
+      secretName: ping-cert
